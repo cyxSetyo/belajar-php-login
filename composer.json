@@ -1,0 +1,33 @@
+{
+    "name": "cyx/belajar-php-mvc",
+    "description": "Belajar Php Mvc",
+    "type": "project",
+    "authors": [
+        {
+            "name": "cyxSetyo",
+            "email": "98861415+cyxSetyo@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php" : ">=7"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "9.5.25"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "BelajarPhpMvc\\Belajar\\PHP\\MVC\\" : "app"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BelajarPhpMvc\\Belajar\\PHP\\MVC\\" : "test"
+        }
+    },
+        "config": {
+    
+            "platform-check": false
+        }
+    
+}
