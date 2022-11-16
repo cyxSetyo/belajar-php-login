@@ -6,8 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Project\\PHP\\Login\\' => array($baseDir . '/app', $baseDir . '/test'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
-    'BelajarPhpMvc\\Belajar\\PHP\\MVC\\' => array($baseDir . '/app', $baseDir . '/test'),
 );

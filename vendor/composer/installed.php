@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => 'cyx/belajar-php-mvc',
+        'name' => 'cyx/belajar-php-login',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'd87c1527a27b48c3f5a219cc012a3858cf270a25',
+        'reference' => 'f45f81de09d8eb0dfb4d060519931bd6278b6143',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'cyx/belajar-php-mvc' => array(
+        'cyx/belajar-php-login' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'd87c1527a27b48c3f5a219cc012a3858cf270a25',
+            'reference' => 'f45f81de09d8eb0dfb4d060519931bd6278b6143',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => true,
         ),
         'nikic/php-parser' => array(
-            'pretty_version' => 'v4.15.1',
-            'version' => '4.15.1.0',
-            'reference' => '0ef6c55a3f47f89d7a374e6f835197a0b5fcf900',
+            'pretty_version' => 'v4.15.2',
+            'version' => '4.15.2.0',
+            'reference' => 'f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),

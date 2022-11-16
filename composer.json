@@ -1,6 +1,6 @@
 {
-    "name": "cyx/belajar-php-mvc",
-    "description": "Belajar Php Mvc",
+    "name": "cyx/belajar-php-login",
+    "description": "Project PHP Login",
     "type": "project",
     "authors": [
         {
@@ -17,12 +17,12 @@
 
     "autoload": {
         "psr-4": {
-            "BelajarPhpMvc\\Belajar\\PHP\\MVC\\" : "app"
+            "Project\\PHP\\Login\\" : "app"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BelajarPhpMvc\\Belajar\\PHP\\MVC\\" : "test"
+            "Project\\PHP\\Login\\" : "test"
         }
     },
         "config": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace BelajarPhpMvc\Belajar\PHP\MVC\App;
+namespace Project\PHP\Login\App;
 
 class Router
 {

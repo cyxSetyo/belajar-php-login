@@ -14,6 +14,7 @@ class ComposerStaticInitc94a6f27c65cdf4546c2b6c5b8876263
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
+            'Project\\PHP\\Login\\' => 18,
             'PhpParser\\' => 10,
         ),
         'D' => 
@@ -21,13 +22,14 @@ class ComposerStaticInitc94a6f27c65cdf4546c2b6c5b8876263
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
-        'B' => 
-        array (
-            'BelajarPhpMvc\\Belajar\\PHP\\MVC\\' => 30,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Project\\PHP\\Login\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+            1 => __DIR__ . '/../..' . '/test',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -39,11 +41,6 @@ class ComposerStaticInitc94a6f27c65cdf4546c2b6c5b8876263
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
-        ),
-        'BelajarPhpMvc\\Belajar\\PHP\\MVC\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app',
-            1 => __DIR__ . '/../..' . '/test',
         ),
     );
 

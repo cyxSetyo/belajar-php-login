@@ -1,6 +1,6 @@
 <?php
 
-namespace BelajarPhpMvc\Belajar\PHP\MVC;
+namespace Project\PHP\Login;
 
 class Hello
 {

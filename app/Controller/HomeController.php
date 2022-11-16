@@ -1,6 +1,6 @@
 <?php
 
-namespace BelajarPhpMvc\Belajar\PHP\MVC\Controller;
+namespace Project\PHP\Login\Controller;
 
 class HomeController
 {
