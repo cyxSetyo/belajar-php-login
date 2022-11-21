@@ -2,24 +2,15 @@
 
 namespace Project\PHP\Login\Controller;
 
+use Project\PHP\Login\App\View;
+
 class HomeController
 {
-    function index():void
+    function index()
     {
-        echo "HomeController.index";
+        View::render('Home/index', [
+            "title" => "Login Management"
+        ]);
     }
 
-    function hello():void
-    {
-        echo "HomeController.hello";
-    }
-
-    function world():void
-    {
-        echo "HelloController.world";
-    }
-    function about():void
-    {
-        echo "Author : Cahyo SB";
-    }
 }
