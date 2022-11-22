@@ -1,9 +1,11 @@
 <?php
 namespace Project\PHP\Login\Service;
 
+use Exception;
 use Project\PHP\Login\Model\UserRegisterRequest;
 use Project\PHP\Login\Repository\UserRegisterResponse;
 use Project\PHP\Login\Repository\UserRepository;
+use Project\PHP\Login\Exception\ValidationException;
 
 class UserService
 {
@@ -17,12 +19,21 @@ class UserService
 
     public function register(UserRegisterRequest $request) : UserRegisterResponse
     {
-        $this->validateUserRegisterRequest($request);
+        $this->validateUserRegistrationRequest($request);
+
+        try{
+           // $user = $this->userRepository->f
+        }catch (\Exception $exception){
+
+        }
     }
 
-    public function validateUserRegisterRequest(UserRegisterRequest $request)
+    public function validateUserRegistrationRequest(UserRegisterRequest $request)
     {
         if($request->id == null || $request->name == null || $request->password == null ||
-        trim($request->id == "") || trim($request->name == "") || trim($request->password == ""));
+        trim($request->id == "") || trim($request->name == "") || trim($request->password == ""))
+        {
+             throw new ValidationException("Id, User, Password Cant Blank");
+        }
     }
 }

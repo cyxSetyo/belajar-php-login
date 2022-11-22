@@ -13,10 +13,10 @@ class ViewTest  extends TestCase
             "PHP Login Management"
         ]);
     
-        $this->expectOutputRegex['PHP Login Management'];
-        $this->expectOutputRegex['body'];
-        $this->expectOutputRegex['html'];
-        $this->expectOutputRegex['Register'];
+        $this->expectOutputRegex('[PHP Login Management]');
+        $this->expectOutputRegex('[body]');
+        $this->expectOutputRegex(('[html]'));
+        $this->expectOutputRegex(('[register]'));
 
     }
     
