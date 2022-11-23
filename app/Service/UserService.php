@@ -1,11 +1,12 @@
 <?php
 namespace Project\PHP\Login\Service;
 
-use Exception;
-use Project\PHP\Login\Model\UserRegisterRequest;
-use Project\PHP\Login\Repository\UserRegisterResponse;
-use Project\PHP\Login\Repository\UserRepository;
+use Project\PHP\Login\Config\Database;
+use Project\PHP\Login\Domain\User;
 use Project\PHP\Login\Exception\ValidationException;
+use Project\PHP\Login\Model\UserRegisterRequest;
+use Project\PHP\Login\Model\UserRegisterResponse;
+use Project\PHP\Login\Repository\UserRepository;
 
 class UserService
 {
@@ -15,19 +16,39 @@ class UserService
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-    }
+    } 
 
-    public function register(UserRegisterRequest $request) : UserRegisterResponse
+    public function register(UserRegisterRequest $request) : UserRegisterResponse 
     {
+
         $this->validateUserRegistrationRequest($request);
 
         try{
-           // $user = $this->userRepository->f
-        }catch (\Exception $exception){
+        Database::beginTransaction();
+    
+        $user = $this->userRepository->findById($request->id);
+        if($user != null){
+            throw new ValidationException("User Already Exists");
+        }
 
+        $user = new User;
+        $user->id = $request->id;
+        $user->name = $request->name;
+        $user->password = password_hash($request->password, PASSWORD_BCRYPT);
+
+        $this->userRepository->save($user);
+
+        $response = new UserRegisterResponse;
+        $response->user = $user;
+
+        Database::commitTransaction();
+        return $response;
+        }catch(\Exception $exception){
+            Database::rollbackTransaction();
+            throw $exception;
         }
     }
-
+    
     public function validateUserRegistrationRequest(UserRegisterRequest $request)
     {
         if($request->id == null || $request->name == null || $request->password == null ||
@@ -36,4 +57,5 @@ class UserService
              throw new ValidationException("Id, User, Password Cant Blank");
         }
     }
+
 }

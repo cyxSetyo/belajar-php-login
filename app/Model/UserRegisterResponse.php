@@ -1,5 +1,5 @@
 <?php
-namespace Project\PHP\Login\Repository;
+namespace Project\PHP\Login\Model;
 
 use Project\PHP\Login\Domain\User;
 

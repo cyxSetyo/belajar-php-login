@@ -19,7 +19,7 @@ class UserRepository
     {
         $statement =  $this->connection-> prepare("INSERT INTO users(id, name, password) VALUES (?, ?, ?)");
         $statement->execute([
-            $user->id, $user->user, $user->password
+            $user->id, $user->name, $user->password
         ]);
         return $user;
     }
