@@ -23,8 +23,7 @@ class UserController
     public function register()
     {
         View::render('User/register', [
-            "title" => "Form Register",
-            //"error" => "upsdsas"
+            "title" => "Form New Register",
         ]);
     }
 
@@ -40,8 +39,9 @@ class UserController
             View::redirect('users/login');
         }catch(ValidationException $exception){
             View::render('User/register',[
-                "title" => "Form Register",
-                "error" => $exception->getMessage()
+                "title" => "Form New Register",
+                'error' => $exception->getMessage()
+                //'error' => "ups",
             ]);
         }
     }
