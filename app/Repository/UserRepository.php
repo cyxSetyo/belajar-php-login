@@ -2,12 +2,10 @@
 
 namespace Project\PHP\Login\Repository;
 
-use PHPUnit\TextUI\XmlConfiguration\Variable;
 use Project\PHP\Login\Domain\User;
 
 class UserRepository
 {
-
     private \PDO $connection;
 
     public function __construct(\PDO $connection)
@@ -15,39 +13,36 @@ class UserRepository
         $this->connection = $connection;
     }
 
-    public function save(User $user) : User
+    public function save(User $user): User
     {
-        $statement =  $this->connection-> prepare("INSERT INTO users(id, name, password) VALUES (?, ?, ?)");
+        $statement = $this->connection->prepare("INSERT INTO users(id, name, password) VALUES (?, ?, ?)");
         $statement->execute([
             $user->id, $user->name, $user->password
         ]);
         return $user;
     }
 
-    public function findById(string $id ): User
+    public function findById(string $id): ?User
     {
-        $statement = $this->connection->prepare("SELECT id, name, password FROM users WHERE id");
+        $statement = $this->connection->prepare("SELECT id, name, password FROM users WHERE id = ?");
         $statement->execute([$id]);
 
-        try{
-
-            if($row = $statement->fetch()){
+        try {
+            if ($row = $statement->fetch()) {
                 $user = new User();
                 $user->id = $row['id'];
                 $user->name = $row['name'];
                 $user->password = $row['password'];
-    
                 return $user;
-            }else{
+            } else {
                 return null;
             }
-
-        }finally{
+        } finally {
             $statement->closeCursor();
         }
     }
 
-    public function deleteAll()
+    public function deleteAll(): void
     {
         $this->connection->exec("DELETE FROM users");
     }

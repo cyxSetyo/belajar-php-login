@@ -6,7 +6,10 @@ class Router
 {
     private static array $routes = [];
 
-    public static function add(string $method, string $path, string $controller, string $function) : void
+    public static function add(string $method, 
+                               string $path, 
+                               string $controller, 
+                               string $function) : void
     {
         //TODO ADD URL Mapping
         self::$routes [] = [
@@ -14,7 +17,6 @@ class Router
             'path' => $path,
             'controller' => $controller,
             'function' => $function
-
         ];
     }
 

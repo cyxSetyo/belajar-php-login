@@ -2,7 +2,6 @@
 
 namespace Project\PHP\Login\Config;
 
-use PDO;
 
 class Database
 {
