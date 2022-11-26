@@ -7,7 +7,7 @@ use Project\PHP\Login\Config\Database;
 use Project\PHP\Login\Controller\HomeController;
 use Project\PHP\Login\Controller\UserController;
 
-//Database::getConnection('test');
+Database::getConnection('prod');
 
 //Home Controller
 Router::add('GET', '/', HomeController::class, 'index', []);
