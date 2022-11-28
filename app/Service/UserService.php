@@ -64,7 +64,7 @@ class UserService
     {
         $this->validateUserLoginRequest($loginrequest);
 
-        $user = $this->UserRepository->findById($loginrequest->id);
+        $user = $this->userRepository->findById($loginrequest->id);
         if($user == null){
             throw new ValidationException("Id and Password is Wrong");
         }
@@ -72,7 +72,7 @@ class UserService
         if(password_verify($loginrequest->password, $user->password)){
             $loginresponse = new UserLoginRespone;
             $loginresponse->user = $user;
-            return $user; 
+            return $loginresponse; 
         }else{
             throw new ValidationException("Id and Password is Wrong");
         }
