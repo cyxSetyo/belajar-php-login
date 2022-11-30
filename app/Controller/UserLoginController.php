@@ -24,7 +24,9 @@ class UserLoginController
     public function login()
     {
         View::render('User/Login', [
-            'title' => "Login"
+            'title' => "Login",
+            //'error' => "asdas"
+            
         ]);
     }
 

@@ -24,7 +24,9 @@ class UserRepository
 
     public function findById(string $id): ?User
     {
-        $statement = $this->connection->prepare("SELECT id, name, password FROM users WHERE id = ?");
+        $statement = $this->connection->prepare(
+            "SELECT id, name, password FROM users WHERE id = ?"
+        );
         $statement->execute([$id]);
 
         try {
@@ -44,6 +46,6 @@ class UserRepository
 
     public function deleteAll(): void
     {
-        $this->connection->exec("DELETE FROM users");
+        $this->connection->exec("DELETE from users");
     }
 }
