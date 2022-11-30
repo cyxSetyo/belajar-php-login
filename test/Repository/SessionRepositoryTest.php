@@ -14,8 +14,11 @@ class SessionRepositoryTest extends TestCase
 
     protected function setUp() :void
     {
+        $this->userRepository = new UserRepository(Database::getConnection());
         $this->sessionRepository = new SessionRepository(Database::getConnection());
         $this->sessionRepository->deleteAll();
+        $this->userRepository->deleteAll();
+        
 
         $user = new User();
         $user->id = "eko";
@@ -33,7 +36,6 @@ class SessionRepositoryTest extends TestCase
         $this->sessionRepository->save($session);
 
         $result = $this->sessionRepository->findById($session->id);
-
         self::assertEquals($session->id, $result->id);
         self::assertEquals($session->userId, $result->userId);
     }

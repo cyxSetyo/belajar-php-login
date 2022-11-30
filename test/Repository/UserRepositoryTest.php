@@ -21,8 +21,8 @@ class UserRepositoryTest extends TestCase
     public function testSaveSuccess()
     {
         $user = new User();
-        $user->id = "ekoss";
-        $user->name = "ekodas";
+        $user->id = "eko";
+        $user->name = "eko";
         $user->password = "rahasia";
 
         $this->userRepository->save($user);
