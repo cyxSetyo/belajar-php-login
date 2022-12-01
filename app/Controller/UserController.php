@@ -41,8 +41,9 @@ class UserController
             View::render('User/register',[
                 "title" => "Form New Register",
                 'error' => $exception->getMessage()
-                //'error' => "ups",
             ]);
         }
     }
+
+
 }

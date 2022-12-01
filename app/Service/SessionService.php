@@ -12,21 +12,21 @@ class SessionService
     
     private SessionRepository $sessionRepository;
     private UserRepository $userRepository;
-    public function __construct(SessionRepository $sessionRepository, UserRepository $userREpository)
+    public function __construct(SessionRepository $sessionRepository, UserRepository $userRepository)
     {
         $this->sessionRepository = $sessionRepository;
-        $this->userRepository = $userREpository;
+        $this->userRepository = $userRepository;
     }
 
     public function create(string $userId) : Session
     {
         $session = new Session();
         $session->id = uniqid();
-        $session->userId = "eko";
+        $session->userId = $userId;
 
         $this->sessionRepository->save($session);
 
-        setcookie(self::$COOKIE_NAME, $session->id, time() * (60 * 60 * 24 * 30), "/");
+        setcookie(self::$COOKIE_NAME, $session->id, time() + (60 * 60 * 24 * 30), "/");
         return $session;
     }
 
