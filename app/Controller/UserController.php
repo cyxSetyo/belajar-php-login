@@ -89,15 +89,38 @@ class UserController
     {
         $user = $this->sessionService->current();
 
-        View::render('User/update', [
+        View::render('User/profile', [
             "title" => "User Update Profile",
-            "userId" => $user->id
+            "user" => [
+                "id" => $user->id,
+                "name" => $user->name
+            ]
         ]);
     }
 
     public function postUpdateProfile()
     {
+        $user = $this->sessionService->current();
 
+        $request = new UserProfileUpdateRequest();
+        $request->id = $user->id;
+        $request->name = $_POST['name'];
+
+        try{
+            $this->userService->updateProfile($request);
+            View::redirect('/');
+
+        }catch(ValidationException $exception){
+            View::render('User/profile', [
+                "title" => "User Update Profile",
+                "error" => $exception->getMessage(),
+                "user" => [
+                    "id" => $user->id,
+                    "name" => $user->name
+                ]
+            ]);
+
+        }
     }
 
 }

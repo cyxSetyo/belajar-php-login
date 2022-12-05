@@ -52,7 +52,7 @@ class UserRepositoryTest extends TestCase
 
         $this->userRepository->save($user);
 
-        $user->name = "eko";
+        $user->name = "budi";
         $this->userRepository->update($user);
 
         $result = $this->userRepository->findById($user->id);
@@ -62,6 +62,7 @@ class UserRepositoryTest extends TestCase
         self::assertEquals($user->password, $result->password);
 
     }
+
 
 
 

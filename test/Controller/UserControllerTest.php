@@ -11,19 +11,26 @@ namespace Project\PHP\Login\Controller{
 use PHPUnit\Framework\TestCase;
 use Project\PHP\Login\Config\Database;
 use Project\PHP\Login\Controller\UserController;
-use Project\PHP\Login\Domain\User;
-use Project\PHP\Login\Repository\UserRepository;
+    use Project\PHP\Login\Domain\Session;
+    use Project\PHP\Login\Domain\User;
+    use Project\PHP\Login\Repository\SessionRepository;
+    use Project\PHP\Login\Repository\UserRepository;
+    use Project\PHP\Login\Service\SessionService;
 
 class UserControllerTest extends TestCase
 {
     private UserController $userController;
     private UserRepository $userRepository;
+    private SessionRepository $sessionRepository;
     
     
     
     protected function setUp() : void
     {
         $this->userController = new UserController;
+
+        $this->sessionRepository = new SessionRepository(Database::getConnection());
+        $this->sessionRepository->deleteAll();
         
         $this->userRepository = new UserRepository(Database::getConnection());
         $this->userRepository->deleteAll();
@@ -87,6 +94,7 @@ class UserControllerTest extends TestCase
         $this->expectOutputRegex("[Password]");
         $this->expectOutputRegex("[User Already Exists]");
     }
-}
-}
 
+
+}
+}

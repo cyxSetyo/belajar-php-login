@@ -27,7 +27,8 @@ Router::add('POST', '/users/login', UserController::class, 'postLogin', [MushNot
 Router::add('GET', '/users/logout', UserController::class, 'postLogout', [MushLoginMidlleware::class]);
 
 //UserUpdate
-Router::add('GET', 'users/profile', UserController::class, 'updateProfile', [MushLoginMidlleware::class]);
+Router::add('GET', '/users/profile', UserController::class, 'updateProfile', [MushLoginMidlleware::class]);
+Router::add('POST', '/users/profile', UserController::class, 'postUpdateProfile', [MushLoginMidlleware::class]);
 
 
 Router::run();

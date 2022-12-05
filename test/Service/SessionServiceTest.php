@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Project\PHP\Login\Config\Database;
 use Project\PHP\Login\Domain\Session;
 use Project\PHP\Login\Domain\User;
+use Project\PHP\Login\Model\UserProfileUpdateRequest;
 use Project\PHP\Login\Repository\SessionRepository;
 use Project\PHP\Login\Repository\UserRepository;
 use Project\PHP\Login\Service\SessionService;
@@ -76,6 +77,25 @@ class SessionServiceTest extends TestCase
         $user = $this->sessionService->current();
 
         self::assertEquals($session->userId, $user->id);
+    }
+    
+    public function testUpdateSuccess()
+    {
+        $user = new User();
+        $user->id = "eko";
+        $user->name = "Eko";
+        $user->password = password_hash("eko", PASSWORD_BCRYPT);
+        $this->userRepository->save($user);
+
+        $request = new UserProfileUpdateRequest();
+        $request->id = "eko";
+        $request->name = "Budi";
+
+        $this->userService->updateProfile($request);
+
+        $result = $this->userRepository->findById($user->id);
+
+        self::assertEquals($request->name, $result->name);
     }
     
 }

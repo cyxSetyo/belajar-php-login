@@ -57,4 +57,5 @@ class UserRepository
     {
         $this->connection->exec("DELETE from users");
     }
+    
 }

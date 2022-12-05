@@ -11,16 +11,19 @@ use Project\PHP\Login\Model\UserProfileUpdateRequest;
 use Project\PHP\Login\Model\UserProfileUpdateResponse;
 use Project\PHP\Login\Model\UserRegisterRequest;
 use Project\PHP\Login\Model\UserRegisterResponse;
+use Project\PHP\Login\Repository\SessionRepository;
 use Project\PHP\Login\Repository\UserRepository;
 
 class UserService
 {
 
     private UserRepository $userRepository;
+   
 
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+     
     } 
 
     public function register(UserRegisterRequest $request) : UserRegisterResponse 
@@ -90,14 +93,14 @@ class UserService
         }
     }
 
-    private function updateProfile(UserProfileUpdateRequest $userupdate) : UserProfileUpdateResponse
+    public function updateProfile(UserProfileUpdateRequest $userupdate) : UserProfileUpdateResponse
     {
         $this->validateUserUpdateRequest($userupdate);
 
         try{
             Database::beginTransaction();
 
-            $user = $this->UserRepository->findById($userupdate->id);
+            $user = $this->userRepository->findById($userupdate->id);
             if($user == null){
                 throw new ValidationException("User is Not Found");
             }else{
