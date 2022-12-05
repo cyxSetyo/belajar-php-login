@@ -20,10 +20,14 @@ Router::add('GET', '/users/register', UserController::class, 'register', [MushNo
 Router::add('POST', '/users/register', UserController::class, 'postRegister', [MushNotLoginMidlleware::class]);
 
 //User Login
-Router::add('GET', '/users/login', UserLoginController::class, 'login', [MushNotLoginMidlleware::class]);
-Router::add('POST', '/users/login', UserLoginController::class, 'postLogin', [MushNotLoginMidlleware::class]);
+Router::add('GET', '/users/login', UserController::class, 'login', [MushNotLoginMidlleware::class]);
+Router::add('POST', '/users/login', UserController::class, 'postLogin', [MushNotLoginMidlleware::class]);
 
 //UserLogout
-Router::add('GET', '/users/logout', UserLoginController::class, 'postLogout', [MushLoginMidlleware::class]);
+Router::add('GET', '/users/logout', UserController::class, 'postLogout', [MushLoginMidlleware::class]);
+
+//UserUpdate
+Router::add('GET', 'users/profile', UserController::class, 'updateProfile', [MushLoginMidlleware::class]);
+
 
 Router::run();

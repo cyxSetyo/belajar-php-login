@@ -1,11 +1,14 @@
 <?php
 namespace Project\PHP\Login\Service;
 
+use Exception;
 use Project\PHP\Login\Config\Database;
 use Project\PHP\Login\Domain\User;
 use Project\PHP\Login\Exception\ValidationException;
 use Project\PHP\Login\Model\UserLoginRequest;
 use Project\PHP\Login\Model\UserLoginRespone;
+use Project\PHP\Login\Model\UserProfileUpdateRequest;
+use Project\PHP\Login\Model\UserProfileUpdateResponse;
 use Project\PHP\Login\Model\UserRegisterRequest;
 use Project\PHP\Login\Model\UserRegisterResponse;
 use Project\PHP\Login\Repository\UserRepository;
@@ -84,6 +87,43 @@ class UserService
         trim($valrequest->id == "") || trim($valrequest->password == ""))
         {
             throw new ValidationException("Id and Password cant Blank");
+        }
+    }
+
+    private function updateProfile(UserProfileUpdateRequest $userupdate) : UserProfileUpdateResponse
+    {
+        $this->validateUserUpdateRequest($userupdate);
+
+        try{
+            Database::beginTransaction();
+
+            $user = $this->UserRepository->findById($userupdate->id);
+            if($user == null){
+                throw new ValidationException("User is Not Found");
+            }else{
+
+                $user->name = $userupdate->name;    
+                $this->userRepository->save($user);
+
+                $userresponse = new UserProfileUpdateResponse;
+                $userresponse->user = $user;
+                return $userresponse;
+            }
+
+            Database::commitTransaction();
+        }catch(\Exception $exception){
+            Database::rollbackTransaction();
+
+            throw $exception;
+        }
+    }
+
+    private function validateUserUpdateRequest(UserProfileUpdateRequest $valupdate)
+    {
+        if($valupdate->id == null || $valupdate->name == null ||
+        trim($valupdate->id == "") || trim($valupdate->name == ""))
+        {
+            throw new ValidationException("ID and Name cant Blank");
         }
     }
 
