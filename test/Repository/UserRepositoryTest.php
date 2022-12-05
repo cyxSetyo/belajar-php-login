@@ -52,7 +52,7 @@ class UserRepositoryTest extends TestCase
 
         $this->userRepository->save($user);
 
-        $user->name = "budi";
+        $user->name = "eko";
         $this->userRepository->update($user);
 
         $result = $this->userRepository->findById($user->id);

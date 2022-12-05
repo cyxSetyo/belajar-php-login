@@ -20,13 +20,14 @@ class SessionServiceTest extends TestCase
     private SessionService $sessionService;
     private SessionRepository $sessionRepository;
     private UserRepository $userRepository;
+    private UserService $userService;
 
     protected function setUp() : void
     {
         $this->userRepository = new UserRepository(Database::getConnection());
         $this->sessionRepository = new SessionRepository(Database::getConnection());
         $this->sessionService = new SessionService($this->sessionRepository, $this->userRepository);
-        
+        $this->userService = new UserService($this->userRepository);
         
         $this->sessionRepository->deleteAll();
         $this->userRepository->deleteAll();
@@ -79,23 +80,5 @@ class SessionServiceTest extends TestCase
         self::assertEquals($session->userId, $user->id);
     }
     
-    public function testUpdateSuccess()
-    {
-        $user = new User();
-        $user->id = "eko";
-        $user->name = "Eko";
-        $user->password = password_hash("eko", PASSWORD_BCRYPT);
-        $this->userRepository->save($user);
-
-        $request = new UserProfileUpdateRequest();
-        $request->id = "eko";
-        $request->name = "Budi";
-
-        $this->userService->updateProfile($request);
-
-        $result = $this->userRepository->findById($user->id);
-
-        self::assertEquals($request->name, $result->name);
-    }
     
 }

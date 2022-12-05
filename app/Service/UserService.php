@@ -103,17 +103,17 @@ class UserService
             $user = $this->userRepository->findById($userupdate->id);
             if($user == null){
                 throw new ValidationException("User is Not Found");
-            }else{
+            }
 
                 $user->name = $userupdate->name;    
-                $this->userRepository->save($user);
+                $this->userRepository->update($user);
+
+                Database::commitTransaction();
 
                 $userresponse = new UserProfileUpdateResponse;
                 $userresponse->user = $user;
                 return $userresponse;
-            }
-
-            Database::commitTransaction();
+            
         }catch(\Exception $exception){
             Database::rollbackTransaction();
 

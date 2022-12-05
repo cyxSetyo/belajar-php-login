@@ -94,7 +94,54 @@ class UserControllerTest extends TestCase
         $this->expectOutputRegex("[Password]");
         $this->expectOutputRegex("[User Already Exists]");
     }
+    
+    public function testUpdateProfile()
+    {
+        $user = new User();
+        $user->id = "eko";
+        $user->name = "Eko";
+        $user->password = password_hash("rahasia", PASSWORD_BCRYPT);
+        $this->userRepository->save($user);
 
+        $session = new Session();
+        $session->id = uniqid();
+        $session->userId = $user->id;
+        $this->sessionRepository->save($session);
+
+        $_COOKIE[SessionService::$COOKIE_NAME] = $session->id;
+
+        $this->userController->updateProfile();
+
+        $this->expectOutputRegex("[Profile]");
+        $this->expectOutputRegex("[Id]");
+        $this->expectOutputRegex("[eko]");
+        $this->expectOutputRegex("[Name]");
+        $this->expectOutputRegex("[Eko]");
+    }
+
+    public function testPostUpdateProfileSuccess()
+    {
+        $user = new User();
+        $user->id = "eko";
+        $user->name = "Eko";
+        $user->password = password_hash("rahasia", PASSWORD_BCRYPT);
+        $this->userRepository->save($user);
+
+        $session = new Session();
+        $session->id = uniqid();
+        $session->userId = $user->id;
+        $this->sessionRepository->save($session);
+
+        $_COOKIE[SessionService::$COOKIE_NAME] = $session->id;
+
+        $_POST['name'] = 'Budi';
+        $this->userController->postUpdateProfile();
+
+        $this->expectOutputRegex("[Location: /]");
+
+        $result = $this->userRepository->findById("eko");
+        self::assertEquals("Budi", $result->name);
+    }
 
 }
 }
