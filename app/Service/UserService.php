@@ -158,7 +158,7 @@ class UserService
             return $passResponse;
 
         }catch(\Exception $exception){
-            Database::commitTransaction();
+            Database::rollbackTransaction();
             throw $exception;
         }
     }

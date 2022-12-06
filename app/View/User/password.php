@@ -15,7 +15,7 @@
         <div class="col-md-10 mx-auto col-lg-5">
             <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" action="/users/password">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="id" placeholder="id" disabled value="<?= $model['user']['id'] ??''  ?>">
+                    <input type="text" class="form-control" id="id" placeholder="id" disabled value="<?= $model['user']['id'] ??''?>">
                     <label for="id">Id</label>
                 </div>
                 <div class="form-floating mb-3">

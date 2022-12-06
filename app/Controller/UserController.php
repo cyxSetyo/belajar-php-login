@@ -150,7 +150,10 @@ class UserController
         }catch(ValidationException $exception){
             View::render('User/password', [
                 "title" => "Update Pasword",
-                "error" => $exception->getMessage()
+                "error" => $exception->getMessage(),
+                "user" => [
+                    "id" => $user->id,
+                ]
             ]);
         }
     }

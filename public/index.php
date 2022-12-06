@@ -33,6 +33,6 @@ Router::add('POST', '/users/profile', UserController::class, 'postUpdateProfile'
 
 //UpdatePAssword
 Router::add('GET', '/users/password', UserController::class, 'updatePassword', [MushLoginMidlleware::class]);
-Router::add('POST', '/users/password', UserRepository::class, 'postPassword', [MushLoginMidlleware::class]);
+Router::add('POST', '/users/password', UserController::class, 'postPassword', [MushLoginMidlleware::class]);
 
 Router::run();
