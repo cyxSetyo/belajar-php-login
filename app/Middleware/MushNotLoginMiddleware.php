@@ -15,15 +15,15 @@ class MushNotLoginMiddleware implements Middleware
 
     public function __construct()
     {
-        $connection = Database::getConnection();
-        $sessionRepository = new SessionRepository($connection);
-        $userRepository = new UserRepository($connection);
+        $sessionRepository = new SessionRepository(Database::getConnection());
+        $userRepository = new UserRepository(Database::getConnection());
         $this->sessionService = new SessionService($sessionRepository, $userRepository);
     }
+
     function before(): void
     {
         $user = $this->sessionService->current();
-        if($user != null){
+        if ($user != null) {
             View::redirect('/');
         }
     }
