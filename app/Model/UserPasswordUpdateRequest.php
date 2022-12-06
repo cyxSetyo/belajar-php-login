@@ -1,7 +1,7 @@
 <?php
 namespace Project\PHP\Login\Model;
 
-class UserUpdatePasswordRequest
+class UserPasswordUpdateRequest
 {
     public ?string $id = null;
     public ?string $oldPassword = null;

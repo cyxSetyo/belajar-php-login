@@ -7,14 +7,14 @@ use Project\PHP\Login\Domain\User;
 use Project\PHP\Login\Exception\ValidationException;
 use Project\PHP\Login\Model\UserLoginRequest;
 use Project\PHP\Login\Model\UserLoginRespone;
+use Project\PHP\Login\Model\UserPasswordUpdateRequest;
+use Project\PHP\Login\Model\UserPasswordUpdateResponse;
 use Project\PHP\Login\Model\UserProfileUpdateRequest;
 use Project\PHP\Login\Model\UserProfileUpdateResponse;
 use Project\PHP\Login\Model\UserRegisterRequest;
 use Project\PHP\Login\Model\UserRegisterResponse;
-use Project\PHP\Login\Model\UserUpdatePasswordRequest;
-use Project\PHP\Login\Model\UserUpdatePasswordResponse;
-use Project\PHP\Login\Repository\SessionRepository;
 use Project\PHP\Login\Repository\UserRepository;
+
 
 class UserService
 {
@@ -132,7 +132,7 @@ class UserService
         }
     }
 
-    public function updatePassword(UserUpdatePasswordRequest $passUpdate): UserUpdatePasswordResponse
+    public function updatePassword(UserPasswordUpdateRequest $passUpdate): UserPasswordUpdateResponse
     {
         $this->validateUpdatePasswordRequest($passUpdate);
 
@@ -144,18 +144,16 @@ class UserService
                 throw new ValidationException("ID Cant Found");
             }
 
-            if(password_verify($passUpdate->oldPassword, $user->password)){
+            if(!password_verify($passUpdate->oldPassword, $user->password)){
                 throw new ValidationException("Old Password is Wrong!!");
             }
-
-
 
             $user->password = password_hash($passUpdate->newPassword, PASSWORD_BCRYPT);
             $this->userRepository->update($user);
 
             Database::commitTransaction();
 
-            $passResponse = new UserUpdatePasswordResponse;
+            $passResponse = new UserPasswordUpdateResponse;
             $passResponse->user = $user;
             return $passResponse;
 
@@ -165,7 +163,7 @@ class UserService
         }
     }
 
-    private function validateUpdatePasswordRequest(UserUpdatePasswordRequest $valPassword)
+    private function validateUpdatePasswordRequest(UserPasswordUpdateRequest $valPassword)
     {
         if($valPassword->id == null || $valPassword->newPassword == null ||
         trim($valPassword->id == "") || trim($valPassword->newPassword == ""))

@@ -5,9 +5,9 @@ use Project\PHP\Login\App\View;
 use Project\PHP\Login\Config\Database;
 use Project\PHP\Login\Exception\ValidationException;
 use Project\PHP\Login\Model\UserLoginRequest;
+use Project\PHP\Login\Model\UserPasswordUpdateRequest;
 use Project\PHP\Login\Model\UserProfileUpdateRequest;
 use Project\PHP\Login\Model\UserRegisterRequest;
-use Project\PHP\Login\Model\UserUpdatePasswordRequest;
 use Project\PHP\Login\Repository\SessionRepository;
 use Project\PHP\Login\Service\UserService;
 use Project\PHP\Login\Repository\UserRepository;
@@ -139,9 +139,10 @@ class UserController
 
         $user = $this->sessionService->current();
 
-        $request = new UserUpdatePasswordRequest;
+        $request = new UserPasswordUpdateRequest;
         $request->id = $user->id;
-        $request->oldPassword = password_hash($request->newPassword, PASSWORD_BCRYPT);
+        $request->oldPassword = $_POST['oldPassword'];
+        $request->newPassword = $_POST['newPassword'];
         
         try{
             $this->userService->updatePassword($request);

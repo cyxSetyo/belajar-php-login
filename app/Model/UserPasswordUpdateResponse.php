@@ -3,7 +3,7 @@ namespace Project\PHP\Login\Model;
 
 use Project\PHP\Login\Domain\User;
 
-class UserUpdatePasswordResponse
+class UserPasswordUpdateResponse
 {
     public User $user;
 }
