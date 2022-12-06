@@ -7,6 +7,7 @@ use Project\PHP\Login\Exception\ValidationException;
 use Project\PHP\Login\Model\UserLoginRequest;
 use Project\PHP\Login\Model\UserProfileUpdateRequest;
 use Project\PHP\Login\Model\UserRegisterRequest;
+use Project\PHP\Login\Model\UserUpdatePasswordRequest;
 use Project\PHP\Login\Repository\SessionRepository;
 use Project\PHP\Login\Service\UserService;
 use Project\PHP\Login\Repository\UserRepository;
@@ -121,43 +122,36 @@ class UserController
         }
     }
 
-    /*
-    public function updateProfile()
+    public function updatePassword()
     {
         $user = $this->sessionService->current();
-
-        View::render('User/profile', [
-            "title" => "User Update Profile",
+        
+        View::render('User/password', [
+            "title" => "Update Pasword",
             "user" => [
                 "id" => $user->id,
-                "name" => $user->name
             ]
         ]);
     }
 
-    public function postUpdateProfile()
+    public function postPassword()
     {
+
         $user = $this->sessionService->current();
 
-        $request = new UserProfileUpdateRequest();
+        $request = new UserUpdatePasswordRequest;
         $request->id = $user->id;
-        $request->name = $_POST['name'];
-
+        $request->oldPassword = password_hash($request->newPassword, PASSWORD_BCRYPT);
+        
         try{
-            $this->userService->updateProfile($request);
+            $this->userService->updatePassword($request);
             View::redirect('/');
-
         }catch(ValidationException $exception){
-            View::render('User/profile', [
-                "title" => "User Update Profile",
-                "error" => $exception->getMessage(),
-                "user" => [
-                    "id" => $user->id,
-                    "name" => $user->name
-                ]
+            View::render('User/password', [
+                "title" => "Update Pasword",
+                "error" => $exception->getMessage()
             ]);
-
         }
-    }*/
+    }
 
 }

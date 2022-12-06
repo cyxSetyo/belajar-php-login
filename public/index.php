@@ -9,6 +9,7 @@ use Project\PHP\Login\Controller\UserController;
 use Project\PHP\Login\Controller\UserLoginController;
 use Project\PHP\Login\Middleware\MushLoginMidlleware;
 use Project\PHP\Login\Middleware\MushNotLoginMidlleware;
+use Project\PHP\Login\Repository\UserRepository;
 
 Database::getConnection('prod');
 
@@ -30,5 +31,8 @@ Router::add('GET', '/users/logout', UserController::class, 'postLogout', [MushLo
 Router::add('GET', '/users/profile', UserController::class, 'updateProfile', [MushLoginMidlleware::class]);
 Router::add('POST', '/users/profile', UserController::class, 'postUpdateProfile', [MushLoginMidlleware::class]);
 
+//UpdatePAssword
+Router::add('GET', '/users/password', UserController::class, 'updatePassword', [MushLoginMidlleware::class]);
+Router::add('POST', '/users/password', UserRepository::class, 'postPassword', [MushLoginMidlleware::class]);
 
 Router::run();

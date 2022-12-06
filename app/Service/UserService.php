@@ -11,6 +11,8 @@ use Project\PHP\Login\Model\UserProfileUpdateRequest;
 use Project\PHP\Login\Model\UserProfileUpdateResponse;
 use Project\PHP\Login\Model\UserRegisterRequest;
 use Project\PHP\Login\Model\UserRegisterResponse;
+use Project\PHP\Login\Model\UserUpdatePasswordRequest;
+use Project\PHP\Login\Model\UserUpdatePasswordResponse;
 use Project\PHP\Login\Repository\SessionRepository;
 use Project\PHP\Login\Repository\UserRepository;
 
@@ -127,6 +129,48 @@ class UserService
         trim($valupdate->id == "") || trim($valupdate->name == ""))
         {
             throw new ValidationException("ID and Name cant Blank");
+        }
+    }
+
+    public function updatePassword(UserUpdatePasswordRequest $passUpdate): UserUpdatePasswordResponse
+    {
+        $this->validateUpdatePasswordRequest($passUpdate);
+
+        try{
+            Database::beginTransaction();
+            $user = $this->userRepository->findById($passUpdate->id);
+
+            if($user == null){
+                throw new ValidationException("ID Cant Found");
+            }
+
+            if(password_verify($passUpdate->oldPassword, $user->password)){
+                throw new ValidationException("Old Password is Wrong!!");
+            }
+
+
+
+            $user->password = password_hash($passUpdate->newPassword, PASSWORD_BCRYPT);
+            $this->userRepository->update($user);
+
+            Database::commitTransaction();
+
+            $passResponse = new UserUpdatePasswordResponse;
+            $passResponse->user = $user;
+            return $passResponse;
+
+        }catch(\Exception $exception){
+            Database::commitTransaction();
+            throw $exception;
+        }
+    }
+
+    private function validateUpdatePasswordRequest(UserUpdatePasswordRequest $valPassword)
+    {
+        if($valPassword->id == null || $valPassword->newPassword == null ||
+        trim($valPassword->id == "") || trim($valPassword->newPassword == ""))
+        {
+            throw new ValidationException("ID and New Password cant Blank");
         }
     }
 

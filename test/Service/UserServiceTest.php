@@ -7,6 +7,7 @@ use Project\PHP\Login\Exception\ValidationException;
 use Project\PHP\Login\Model\UserLoginRequest;
 use Project\PHP\Login\Model\UserProfileUpdateRequest;
 use Project\PHP\Login\Model\UserRegisterRequest;
+use Project\PHP\Login\Model\UserUpdatePasswordRequest;
 use Project\PHP\Login\Repository\SessionRepository;
 use Project\PHP\Login\Repository\UserRepository;
 use Project\PHP\Login\Service\UserService;
@@ -138,5 +139,24 @@ class UserServiceTest extends TestCase
         $result = $this->userRepository->findById($user->id);
 
         self::assertEquals($request->name, $result->name);
+    }
+
+    public function testUpdatePasswordSuccess()
+    {
+        $user = new User();
+        $user->id = "eko";
+        $user->name = "Eko";
+        $user->password = password_hash("eko", PASSWORD_BCRYPT);
+        $this->userRepository->save($user);
+
+        $request = new UserUpdatePasswordRequest();
+        $request->id = "eko";
+        $request->oldPassword = "eko";
+        $request->newPassword = "new";
+
+        $this->userService->updatePassword($request);
+
+        $result = $this->userRepository->findById($user->id);
+        self::assertTrue(password_verify($request->newPassword, $result->password));
     }
 }
